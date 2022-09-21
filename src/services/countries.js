@@ -3,7 +3,7 @@ import { checkError, client } from './client';
 export async function fetchCountries() {
   const resp = await client
     .from('countries')
-    .select('*')
+    .select('*');
 
-    return checkError(resp);
+  return checkError(resp);
 }
