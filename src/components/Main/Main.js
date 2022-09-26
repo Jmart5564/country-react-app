@@ -1,22 +1,17 @@
-import { useEffect, useState } from 'react';
-import { fetchCountries } from '../../services/countries';
+// import { useEffect, useState } from 'react';
+// import { fetchCountries } from '../../services/countries';
 import CountryCard from '../Country/Country';
+import Filter from '../Filter/Filter';
+import useCountries from '../hooks/useCountries';
 
 export default function Main() {
-  fetchCountries();
-  const [countries, setCountries] = useState([]);
+  const { filterCountries, continent, setContinent } = useCountries();
 
-  useEffect(() => {
-    async function fetchData() {
-      const data = await fetchCountries();
-      setCountries(data);
-    }
-    fetchData();
-  }, []);
 
   return (
     <main>
-      {countries.map(country => <CountryCard key={country.id} { ...country } />)}
+      <Filter setContinent={setContinent} continent={continent} />
+      {filterCountries().map(country => <CountryCard key={country.id} { ...country } />)}
     </main>
   );
 }
